@@ -2,6 +2,7 @@ const express = require( 'express' );
 const app = express();
 const volleyball = require('volleyball');
 const nunjucks = require('nunjucks');
+const routes = require('./routes');
 
 console.log('hello wolrd');
 
@@ -22,10 +23,15 @@ nunjucks.configure('views', {noCache: true});
 
 app.use(volleyball);
 
-const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
+// const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
 
-app.get('/',(req,res) => res.render('index', {title: 'Hall of Fame', people: people}));
-app.get('/items',(req,res) => res.render('index', items));
+app.use('/', routes);
+app.use(express.static('public'));
+
+
+
+// app.get('/',(req,res) => res.render('index', {title: 'Hall of Fame', people: people}));
+// app.get('/items',(req,res) => res.render('index', items));
 
 app.use('/deep/new', (req, res) => res.send('this is deep area'));
 
